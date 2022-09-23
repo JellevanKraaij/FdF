@@ -15,25 +15,35 @@
 
 # include <libft.h>
 
-typedef struct s_mappoint {
+typedef struct s_3dpoint {
 	int	height;
 	int	color;
-}	t_mappoint;
+}	t_3dpoint;
 
-typedef struct s_2dmap {
+typedef struct s_2dpoint {
+	int	color;
+	int	x;
+	int	y;
+}	t_2dpoint;
+
+typedef struct s_map {
 	t_list	*elements;
 	size_t	row_count;
 	size_t	column_count;
-}	t_2dmap;
+}	t_map;
 
-t_2dmap		*parse_map(char *filename);
+t_map		*parse_map(char *filename);
 
-t_mappoint	*init_mappoint(void);
-t_mappoint	*create_mappoint(int heigt, int color);
-void		destroy_mappoint(void *mappoint);
+t_3dpoint	*init_3dpoint(void);
+t_3dpoint	*create_3dpoint(int heigt, int color);
+void		destroy_3dpoint(void *mappoint);
 
-t_2dmap		*init_2dmap(void);
-void		destroy_2dmap(t_2dmap *map);
+t_2dpoint	*init_2dpoint(void);
+t_2dpoint	*create_2dpoint(int color, int x, int y);
+void		destroy_2dpoint(void *mappoint);
+
+t_map		*init_map(void);
+void		destroy_map(t_map *map);
 
 int			ft_atoi_safe(const char *str, int *number);
 

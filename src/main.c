@@ -13,7 +13,7 @@
 #include <fdf.h>
 #include <stdio.h>
 
-void	print_2dmap(t_2dmap *map)
+void	print_3dmap(t_map *map)
 {
 	t_list		*tmp;
 	size_t		i;
@@ -22,7 +22,7 @@ void	print_2dmap(t_2dmap *map)
 	i = 1;
 	while (tmp)
 	{
-		printf("%d,0x%06X", ((t_mappoint *)tmp->content)->height, ((t_mappoint *)tmp->content)->color);
+		printf("%d,0x%06X", ((t_3dpoint *)tmp->content)->height, ((t_3dpoint *)tmp->content)->color);
 		if (i % map->column_count)
 			printf(" ");
 		else
@@ -34,7 +34,7 @@ void	print_2dmap(t_2dmap *map)
 
 int	main(int argc, char **argv)
 {
-	t_2dmap	*map;
+	t_map	*map_3d;
 
 	if (argc < 2)
 	{
@@ -42,9 +42,9 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("usage: ./fdf [file]", STDERR_FILENO);
 		exit (EXIT_FAILURE);
 	}
-	map = parse_map(argv[1]);
-	printf("map rowlen = %lu\n", map->column_count);
-	print_2dmap(map);
-	destroy_2dmap(map);
+	map_3d = parse_map(argv[1]);
+	printf("map rowlen = %lu\n", map_3d->column_count);
+	print_3dmap(map_3d);
+	destroy_map(map_3d);
 	return (EXIT_SUCCESS);
 }

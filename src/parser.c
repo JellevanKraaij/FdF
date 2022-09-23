@@ -72,20 +72,20 @@ size_t	parse_line(int fd, t_list **map)
 		if (parse_num_color(row[i], &num, &color) < 0)
 			print_error_exit("fdf: invalid number", EXIT_FAILURE);
 		ft_lstadd_back_quick(map, null_exit(ft_lstnew(\
-			create_mappoint(num, color))));
+			create_3dpoint(num, color))));
 		i++;
 	}
 	ft_split_free(row);
 	return (i);
 }
 
-t_2dmap	*parse_map(char *filename)
+t_map	*parse_map(char *filename)
 {
 	int		fd;
-	t_2dmap	*map;
+	t_map	*map;
 	size_t	tmp;
 
-	map = init_2dmap();
+	map = init_map();
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
