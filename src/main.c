@@ -22,9 +22,9 @@ void	print_2dmap(t_2dmap *map)
 	i = 1;
 	while (tmp)
 	{
-		printf("%d", ((t_mappoint *)tmp->content)->height);
-		if (i % map->row_len)
-			printf(",");
+		printf("%d,0x%06X", ((t_mappoint *)tmp->content)->height, ((t_mappoint *)tmp->content)->color);
+		if (i % map->column_count)
+			printf(" ");
 		else
 			printf("\n");
 		i++;
@@ -43,7 +43,8 @@ int	main(int argc, char **argv)
 		exit (EXIT_FAILURE);
 	}
 	map = parse_map(argv[1]);
-	printf("map rowlen = %lu\n", map->row_len);
+	printf("map rowlen = %lu\n", map->column_count);
 	print_2dmap(map);
+	destroy_2dmap(map);
 	return (EXIT_SUCCESS);
 }

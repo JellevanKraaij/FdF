@@ -4,48 +4,78 @@
 #include <stdio.h>
 #include <get_next_line.h>
 
-size_t	parse_line(int fd, t_list **list)
+static	void	ft_lstadd_back_quick(t_list **lst, t_list *new)
+{
+	static t_list	*last = NULL;
+
+	if (new == NULL)
+	{
+		last = ft_lstlast(*lst);
+		return ;
+	}
+	if (last == NULL)
+	{
+		last = new;
+		*lst = last;
+		return ;
+	}
+	last->next = new;
+	last = last->next;
+}
+
+static	char	**get_file_row(int fd)
 {
 	char	*line;
-	char	**split;
-	size_t	i;
-	int		num;
-	t_list	*last;
+	char	**split_line;
 
 	line = get_next_line(fd);
 	if (line == NULL)
-		return (0);
-	split = ft_splitset(line, " \n");
+		return (NULL);
+	split_line = null_exit(ft_splitset(line, " \n"));
 	free(line);
-	if (split == NULL)
-		perror_exit("fdf", EXIT_FAILURE);
-	if (split[0] == NULL)
-	{
-		ft_putendl_fd("fdf: empty line", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
+	return (split_line);
+}
+
+static	int	parse_num_color(char *cell, int *height, int *color)
+{
+	char	*loc;
+	char	*num;
+	int		ret;
+
+	ret = 0;
+	loc = ft_strchr(cell, ',');
+	*color = 0xFFFFFF;
+	if (loc == NULL)
+		return (ft_atoi_safe(cell, height));
+	num = null_exit(ft_strndup(cell, (size_t)loc - (size_t)cell));
+	if (ft_atoi_safe(num, height) < 0 || ft_atoi_safe((loc + 1), color))
+		ret = -1;
+	free(num);
+	return (ret);
+}
+
+size_t	parse_line(int fd, t_list **map)
+{
+	char	**row;
+	size_t	i;
+	int		num;
+	int		color;
+
+	row = get_file_row(fd);
+	if (row == NULL)
+		return (0);
+	if (row[0] == NULL)
+		print_error_exit("fdf: empty line", EXIT_FAILURE);
 	i = 0;
-	last = ft_lstlast(*list);
-	while (split[i])
+	while (row[i])
 	{
-		if (ft_atoi_p(split[i], &num) < 0)
-		{
-			ft_putendl_fd("fdf: invalid number", STDERR_FILENO);
-			exit(EXIT_FAILURE);
-		}
-		if (last == NULL)
-		{
-			*list = null_exit(ft_lstnew(create_mappoint(num, -1)));
-			last = *list;
-		}
-		else
-		{
-			last->next = null_exit(ft_lstnew(create_mappoint(num, -1)));
-			last = last->next;
-		}
+		if (parse_num_color(row[i], &num, &color) < 0)
+			print_error_exit("fdf: invalid number", EXIT_FAILURE);
+		ft_lstadd_back_quick(map, null_exit(ft_lstnew(\
+			create_mappoint(num, color))));
 		i++;
 	}
-	ft_split_free(split);
+	ft_split_free(row);
 	return (i);
 }
 
@@ -62,17 +92,16 @@ t_2dmap	*parse_map(char *filename)
 		perror("fdf");
 		exit(EXIT_FAILURE);
 	}
+	ft_lstadd_back_quick(&map->elements, NULL);
 	while (1)
 	{
 		tmp = parse_line(fd, &map->elements);
 		if (tmp == 0)
 			break ;
-		if (tmp != map->row_len && map->row_len != 0)
-		{
-			ft_putendl_fd("fdf: row is too long", STDERR_FILENO);
-			exit(EXIT_FAILURE);
-		}
-		map->row_len = tmp;
+		if (tmp != map->column_count && map->column_count != 0)
+			print_error_exit("fdf: row is too long", EXIT_FAILURE);
+		map->column_count = tmp;
+		map->row_count++;
 	}
 	return (map);
 }

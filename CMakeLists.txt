@@ -1,13 +1,11 @@
 cmake_minimum_required(VERSION 3.21.0)
 
-#add_subdirectory(lib/glfw)
-
 project(FdF)
 set (SRCS 
     src/main.c
     src/error.c
     src/parser.c
-    src/ft_atoi_p.c
+    src/ft_atoi_save.c
     src/t_mappoint.c
     src/t_2dmap.c
 )
@@ -37,7 +35,7 @@ target_include_directories(mlx42 INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/lib/MLX42
 add_executable(${EXEC_NAME} ${SRCS})
 target_include_directories(${EXEC_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-find_library(GLFW_LIB glfw3)
+find_library(GLFW_LIB NAMES glfw3 glfw)
 target_link_libraries(${EXEC_NAME} PRIVATE mlx42 ${GLFW_LIB})
 if (APPLE)
 target_link_libraries(${EXEC_NAME} PRIVATE "-framework Cocoa" "-framework OpenGL" "-framework IOKit")

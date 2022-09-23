@@ -22,21 +22,26 @@ typedef struct s_mappoint {
 
 typedef struct s_2dmap {
 	t_list	*elements;
-	size_t	row_len;
+	size_t	row_count;
+	size_t	column_count;
 }	t_2dmap;
 
 t_2dmap		*parse_map(char *filename);
 
 t_mappoint	*init_mappoint(void);
 t_mappoint	*create_mappoint(int heigt, int color);
+void		destroy_mappoint(void *mappoint);
 
 t_2dmap		*init_2dmap(void);
-t_2dmap		*create_2dmap(t_list *elements, int row_len);
+void		destroy_2dmap(t_2dmap *map);
 
-int			ft_atoi_p(const char *str, int *number);
+int			ft_atoi_safe(const char *str, int *number);
 
 void		perror_exit(const char *s, int error_code) \
 					__attribute__((noreturn));
 void		*null_exit(void	*ptr);
+void		print_error_exit(char *error, int error_code) \
+					__attribute__((noreturn));
+void		print_error(char *error);
 
 #endif

@@ -15,3 +15,8 @@ t_mappoint	*create_mappoint(int heigt, int color)
 	ret->color = color;
 	return (ret);
 }
+
+void	destroy_mappoint(void *mappoint)
+{
+	free(mappoint);
+}

@@ -15,3 +15,15 @@ void	perror_exit(const char *s, int error_code)
 	perror(s);
 	exit(error_code);
 }
+
+void	print_error_exit(char *error, int error_code)
+{
+	print_error(error);
+	exit(error_code);
+}
+
+void	print_error(char *error)
+{
+	ft_putstr_fd("fdf: ", STDERR_FILENO);
+	ft_putendl_fd(error, STDERR_FILENO);
+}
