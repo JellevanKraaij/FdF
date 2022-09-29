@@ -4,23 +4,32 @@
 #include <stdio.h>
 #include <get_next_line.h>
 
-static	void	ft_lstadd_back_quick(t_list **lst, t_list *new)
-{
-	static t_list	*last = NULL;
 
-	if (new == NULL)
+static	void	add_point(t_point **points, t_point point)
+{
+	static t_point	*last;
+	static size_t	used_len;
+	static size_t	buffersize = 1;
+	static size_t	len;
+
+	if (*points == NULL)
 	{
-		last = ft_lstlast(*lst);
-		return ;
+		used_len = 0;
+		len = 0;
+		*points = null_exit(ft_calloc(buffersize, sizeof(t_point)));
+		last = *points;
 	}
-	if (last == NULL)
+	if (used_len >= buffersize)
 	{
-		last = new;
-		*lst = last;
-		return ;
+		buffersize = len;
+		*points = ft_reallocf(*points, len * sizeof(t_point), (len + buffersize) * sizeof(t_point));
+		used_len = 0;
+		last = &(*points)[len];
 	}
-	last->next = new;
-	last = last->next;
+	*last = point;
+	last++;
+	used_len++;
+	len++;
 }
 
 static	char	**get_file_row(int fd)
@@ -54,7 +63,7 @@ static	int	parse_num_color(char *cell, int *height, int *color)
 	return (ret);
 }
 
-size_t	parse_line(int fd, t_list **map)
+int	parse_line(int fd, t_map *map)
 {
 	char	**row;
 	size_t	i;
@@ -63,27 +72,28 @@ size_t	parse_line(int fd, t_list **map)
 
 	row = get_file_row(fd);
 	if (row == NULL)
-		return (0);
+		return (1);
 	if (row[0] == NULL)
 		print_error_exit("fdf: empty line", EXIT_FAILURE);
 	i = 0;
 	while (row[i])
 	{
+		if (map->column_count != 0 && i >= map->column_count)
+			print_error_exit("fdf: row is too long", EXIT_FAILURE);
 		if (parse_num_color(row[i], &num, &color) < 0)
 			print_error_exit("fdf: invalid number", EXIT_FAILURE);
-		ft_lstadd_back_quick(map, null_exit(ft_lstnew(\
-			create_3dpoint(num, color))));
+		add_point(&map->points, (t_point){.cords = {i, map->row_count, num}, .color = color});
 		i++;
 	}
 	ft_split_free(row);
-	return (i);
+	map->column_count = i;
+	return (0);
 }
 
 t_map	*parse_map(char *filename)
 {
 	int		fd;
 	t_map	*map;
-	size_t	tmp;
 
 	map = init_map();
 	fd = open(filename, O_RDONLY);
@@ -92,15 +102,11 @@ t_map	*parse_map(char *filename)
 		perror("fdf");
 		exit(EXIT_FAILURE);
 	}
-	ft_lstadd_back_quick(&map->elements, NULL);
 	while (1)
 	{
-		tmp = parse_line(fd, &map->elements);
-		if (tmp == 0)
+		if (parse_line(fd, map))
 			break ;
-		if (tmp != map->column_count && map->column_count != 0)
-			print_error_exit("fdf: row is too long", EXIT_FAILURE);
-		map->column_count = tmp;
+		printf("complete %lu row\n", map->row_count);
 		map->row_count++;
 	}
 	return (map);

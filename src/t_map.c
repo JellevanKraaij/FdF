@@ -8,6 +8,6 @@ t_map	*init_map(void)
 
 void	destroy_map(t_map *map)
 {
-	ft_lstclear(&map->elements, destroy_3dpoint);
+	free(map->points);
 	free(map);
 }

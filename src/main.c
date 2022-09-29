@@ -12,39 +12,48 @@
 
 #include <fdf.h>
 #include <stdio.h>
+#include <MLX42/MLX42.h>
+#define WIDTH 1000
+#define HEIGHT 1000
 
 void	print_3dmap(t_map *map)
 {
-	t_list		*tmp;
 	size_t		i;
 
-	tmp = map->elements;
-	i = 1;
-	while (tmp)
+	i = 0;
+	while (i < map->column_count * map->row_count)
 	{
-		printf("%d,0x%06X", ((t_3dpoint *)tmp->content)->height, ((t_3dpoint *)tmp->content)->color);
-		if (i % map->column_count)
+		printf("%.0f,0x%06X", map->points[i].cords[Z], map->points[i].color);
+		if ((i + 1) % map->column_count)
 			printf(" ");
 		else
 			printf("\n");
 		i++;
-		tmp = tmp->next;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_map	*map_3d;
+	t_map		*map;
+	// mlx_t		*mlx;
+	// mlx_image_t	*img;
 
+	// mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	// img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (argc < 2)
 	{
 		ft_putendl_fd("fdf: missing parameter", STDERR_FILENO);
 		ft_putendl_fd("usage: ./fdf [file]", STDERR_FILENO);
 		exit (EXIT_FAILURE);
 	}
-	map_3d = parse_map(argv[1]);
-	printf("map rowlen = %lu\n", map_3d->column_count);
-	print_3dmap(map_3d);
-	destroy_map(map_3d);
+	map = parse_map(argv[1]);
+	printf("map rowlen = %lu\n", map->column_count);
+	// print_3dmap(map);
+	// update_map_screen(map);
+	// map_to_img(img, map);
+	// mlx_image_to_window(mlx, img, 0, 0);
+	// mlx_loop(mlx);
+	destroy_map(map);
+
 	return (EXIT_SUCCESS);
 }

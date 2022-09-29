@@ -14,33 +14,28 @@
 # define FDF_H
 
 # include <libft.h>
+# include <MLX42/MLX42.h>
 
-typedef struct s_3dpoint {
-	int	height;
-	int	color;
-}	t_3dpoint;
 
-typedef struct s_2dpoint {
-	int	color;
-	int	x;
-	int	y;
-}	t_2dpoint;
+# define X 0
+# define Y 1
+# define Z 2
+
+typedef struct s_point
+{
+	double	cords[3];
+	int		color;
+}	t_point;
 
 typedef struct s_map {
-	t_list	*elements;
-	size_t	row_count;
-	size_t	column_count;
+	t_point		*points;
+	size_t		row_count;
+	size_t		column_count;
 }	t_map;
 
 t_map		*parse_map(char *filename);
-
-t_3dpoint	*init_3dpoint(void);
-t_3dpoint	*create_3dpoint(int heigt, int color);
-void		destroy_3dpoint(void *mappoint);
-
-t_2dpoint	*init_2dpoint(void);
-t_2dpoint	*create_2dpoint(int color, int x, int y);
-void		destroy_2dpoint(void *mappoint);
+void		update_map_screen(t_map *map_3d);
+void		map_to_img(mlx_image_t *img, t_map *map);
 
 t_map		*init_map(void);
 void		destroy_map(t_map *map);

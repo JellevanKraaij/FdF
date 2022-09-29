@@ -6,10 +6,9 @@ set (SRCS
     src/error.c
     src/parser.c
     src/ft_atoi_save.c
-    src/t_3dpoint.c
-    src/t_2dpoint.c
     src/t_map.c
     src/convert_map.c
+    src/map_to_img.c
 )
 set (EXEC_NAME fdf)
 
