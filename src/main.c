@@ -13,7 +13,7 @@
 #include <fdf.h>
 #include <stdio.h>
 #include <MLX42/MLX42.h>
-#define WIDTH 1000
+#define WIDTH 1500
 #define HEIGHT 1000
 
 void	print_3dmap(t_map *map)
@@ -35,11 +35,11 @@ void	print_3dmap(t_map *map)
 int	main(int argc, char **argv)
 {
 	t_map		*map;
-	// mlx_t		*mlx;
-	// mlx_image_t	*img;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
 
-	// mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	// img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (argc < 2)
 	{
 		ft_putendl_fd("fdf: missing parameter", STDERR_FILENO);
@@ -48,12 +48,11 @@ int	main(int argc, char **argv)
 	}
 	map = parse_map(argv[1]);
 	printf("map rowlen = %lu\n", map->column_count);
-	// print_3dmap(map);
+	print_3dmap(map);
 	// update_map_screen(map);
-	// map_to_img(img, map);
-	// mlx_image_to_window(mlx, img, 0, 0);
-	// mlx_loop(mlx);
+	map_to_img(img, map);
+	mlx_image_to_window(mlx, img, 0, 0);
 	destroy_map(map);
-
+	mlx_loop(mlx);
 	return (EXIT_SUCCESS);
 }
