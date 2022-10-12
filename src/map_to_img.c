@@ -41,21 +41,6 @@ void plotLine(mlx_image_t *img, int x0, int y0, int x1, int y1)
 	}
 }
 
-void	convert_iso(double cords[3], int *x, int *y)
-{
-	double _x, _y;
-	_x = (cords[X] - cords[Y]) * cos(0.523598776);
-	_y = cords[Y] + (cords[X] - (cords[Z] * 0.5)) * sin(0.523598776);
-
-	_x *= 20;
-	_y *= 20;
-	_y += 500;
-	_x += 500;
-
-	*x = _x;
-	*y = _y;
-}
-
 void	map_to_img(mlx_image_t *img, t_map *map)
 {
 	size_t	i;
@@ -69,41 +54,20 @@ void	map_to_img(mlx_image_t *img, t_map *map)
 	{
 		if ((i % map->column_count) + 1 < map->column_count)
 		{
-			convert_iso(map->points[i].cords, &x0, &y0);
-			convert_iso(map->points[i + 1].cords, &x1, &y1);
+			x0 = map->points[i].cords[X];
+			y0 = map->points[i].cords[Y];
+			x1 = map->points[i + 1].cords[X];
+			y1 = map->points[i + 1].cords[Y];
 			plotLine(img, x0, y0, x1, y1);
 		}
 		if ((i / map->column_count) + 1 < map->row_count)
 		{
-			convert_iso(map->points[i].cords, &x0, &y0);
-			convert_iso(map->points[i + map->column_count].cords, &x1, &y1);
+			x0 = map->points[i].cords[X];
+			y0 = map->points[i].cords[Y];
+			x1 = map->points[i + map->column_count].cords[X];
+			y1 = map->points[i + map->column_count].cords[Y];
 			plotLine(img, x0, y0, x1, y1);
 		}
 		i++;
 	}
 }
-
-// 	i = 0;
-// 	while (i < map->row_count)
-// 	{
-// 		j = 0;
-// 		while (j < map->column_count)
-// 		{
-// 			point1 = map->map_2d[i][j];
-// 			if (j + 1 < map->column_count)
-// 			{
-// 				point2 = map->map_2d[i][j + 1];
-// 				printf("line\n");
-// 				plotLine(img, point1.x, point1.y, point2.x, point2.y);
-// 			}
-// 			if (i + 1 < map->row_count)
-// 			{
-// 				printf("line\n");
-// 				point2 = map->map_2d[i + 1][j];
-// 				plotLine(img, point1.x, point1.y, point2.x, point2.y);
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }

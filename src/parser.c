@@ -106,7 +106,6 @@ t_map	*parse_map(char *filename)
 	{
 		if (parse_line(fd, map))
 			break ;
-		printf("complete %lu row\n", map->row_count);
 		map->row_count++;
 	}
 	return (map);

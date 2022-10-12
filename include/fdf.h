@@ -33,12 +33,21 @@ typedef struct s_map {
 	size_t		column_count;
 }	t_map;
 
+typedef struct s_data {
+	t_map		*map;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	int			update;
+	double		scale[3];
+} t_data;
+
 t_map		*parse_map(char *filename);
 void		update_map_screen(t_map *map_3d);
 void		map_to_img(mlx_image_t *img, t_map *map);
 
 t_map		*init_map(void);
 void		destroy_map(t_map *map);
+t_map		*copy_map(t_map *map);
 
 int			ft_atoi_safe(const char *str, int *number);
 
@@ -48,5 +57,8 @@ void		*null_exit(void	*ptr);
 void		print_error_exit(char *error, int error_code) \
 					__attribute__((noreturn));
 void		print_error(char *error);
+void		map_project_iso(t_map *map);
+void		map_apply_scale(t_map *map, double scale[3]);
+void	map_apply_offset(t_map *map, double offset[3]);
 
 #endif

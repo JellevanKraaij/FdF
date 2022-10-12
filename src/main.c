@@ -32,27 +32,61 @@ void	print_3dmap(t_map *map)
 	}
 }
 
+void	loop_hook(void *data_p)
+{
+	t_data *data;
+	t_map *map;
+
+	data = data_p;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_T))
+	{
+		data->scale[Z]++;
+		printf("double %lf\n", data->scale[Z]);
+		data->update = 1;
+		printf("T\n");
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_G))
+	{
+		data->scale[Z]--;
+		data->update = 1;
+		printf("G\n");
+	}
+	if (data->update)
+	{
+		printf("update map\n");
+		map = copy_map(data->map);
+		map_apply_scale(map, data->scale);
+		map_project_iso(map);
+		double offset[3] = {500, 500, 0};
+		map_apply_offset(map, offset);
+		map_to_img(data->img, map);
+		destroy_map(map);
+		data->update = 0;
+		printf("update map done\n");
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	t_map		*map;
-	mlx_t		*mlx;
-	mlx_image_t	*img;
+	t_data		data;
 
-	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	ft_bzero(&data, sizeof(data));
 	if (argc < 2)
 	{
 		ft_putendl_fd("fdf: missing parameter", STDERR_FILENO);
 		ft_putendl_fd("usage: ./fdf [file]", STDERR_FILENO);
 		exit (EXIT_FAILURE);
 	}
-	map = parse_map(argv[1]);
-	printf("map rowlen = %lu\n", map->column_count);
-	print_3dmap(map);
-	// update_map_screen(map);
-	map_to_img(img, map);
-	mlx_image_to_window(mlx, img, 0, 0);
-	destroy_map(map);
-	mlx_loop(mlx);
+	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(data.mlx, data.img, 0, 0);
+	data.map = parse_map(argv[1]);
+	data.update = 1;
+	data.scale[X] = 20;
+	data.scale[Y] = 20;
+	data.scale[Z] = 5;
+	mlx_loop_hook(data.mlx, loop_hook, &data);
+	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);
 }

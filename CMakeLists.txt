@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21.0)
 
 project(FdF)
-set (SRCS 
+set (SRCS
     src/main.c
     src/error.c
     src/parser.c
@@ -9,6 +9,9 @@ set (SRCS
     src/t_map.c
     src/convert_map.c
     src/map_to_img.c
+    src/projections.c
+    src/scaling.c
+    src/offset.c
 )
 set (EXEC_NAME fdf)
 
@@ -22,7 +25,7 @@ add_custom_target(fclean make clean)
 add_custom_target(re make clean COMMAND make)
 
 #compile MLX42
-add_custom_target(build_mlx42 ALL 
+add_custom_target(build_mlx42 ALL
                    COMMAND ${CMAKE_MAKE_PROGRAM}
                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib/MLX42
                    COMMENT "Original MLX42 makefile target")
