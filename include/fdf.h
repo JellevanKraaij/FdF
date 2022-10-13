@@ -38,7 +38,10 @@ typedef struct s_data {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	int			update;
-	double		scale[3];
+	double		scale;
+	double		z_scale;
+	int			x_offset;
+	int			y_offset;
 } t_data;
 
 t_map		*parse_map(char *filename);

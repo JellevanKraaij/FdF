@@ -7,7 +7,7 @@ void	point_apply_iso(t_point *point)
 	double y;
 
 	x = (point->cords[X] - point->cords[Y]) * cos(0.523598776);
-	y = point->cords[Y] + (point->cords[X] - (point->cords[Z] * 0.5)) * sin(0.523598776);
+	y = (-point->cords[Z] + point->cords[Y] + point->cords[X]) * sin(0.523598776);
 
 	point->cords[X] = x;
 	point->cords[Y] = y;
