@@ -16,10 +16,15 @@
 # include <libft.h>
 # include <MLX42/MLX42.h>
 
+# define WIDTH 1000
+# define HEIGHT 1000
+// #define ZOOM_FACTOR 1
+// #define MOVEMENT_FACTOR 1
 
 # define X 0
 # define Y 1
 # define Z 2
+# define ISO 0
 
 typedef struct s_point
 {
@@ -39,9 +44,11 @@ typedef struct s_data {
 	mlx_image_t	*img;
 	int			update;
 	double		scale;
+	double		map_scale;
 	double		z_scale;
 	int			x_offset;
 	int			y_offset;
+	int			projection;
 } t_data;
 
 t_map		*parse_map(char *filename);
