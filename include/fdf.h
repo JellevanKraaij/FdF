@@ -18,8 +18,6 @@
 
 # define WIDTH 1000
 # define HEIGHT 1000
-// #define ZOOM_FACTOR 1
-// #define MOVEMENT_FACTOR 1
 
 # define X 0
 # define Y 1
@@ -46,18 +44,18 @@ typedef struct s_data {
 	double		scale;
 	double		map_scale;
 	double		z_scale;
-	int			x_offset;
-	int			y_offset;
+	double		x_offset;
+	double		y_offset;
 	int			projection;
 } t_data;
 
 t_map		*parse_map(char *filename);
-void		update_map_screen(t_map *map_3d);
-void		map_to_img(mlx_image_t *img, t_map *map);
+void 		update_screen(t_data *data);
+void		plot_lines(mlx_image_t *img, t_map *map);
 
 t_map		*init_map(void);
 void		destroy_map(t_map *map);
-t_map		*copy_map(t_map *map);
+t_map		*dup_map(t_map *map);
 
 int			ft_atoi_safe(const char *str, int *number);
 
@@ -69,6 +67,6 @@ void		print_error_exit(char *error, int error_code) \
 void		print_error(char *error);
 void		map_project_iso(t_map *map);
 void		map_apply_scale(t_map *map, double scale[3]);
-void	map_apply_offset(t_map *map, double offset[3]);
+void		map_apply_offset(t_map *map, double offset[3]);
 
 #endif

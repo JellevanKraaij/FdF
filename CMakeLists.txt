@@ -8,15 +8,16 @@ set (SRCS
     src/ft_atoi_save.c
     src/t_map.c
     src/convert_map.c
-    src/map_to_img.c
+    src/plot_lines.c
     src/projections.c
     src/scaling.c
     src/offset.c
+    src/update_screen.c
 )
 set (EXEC_NAME fdf)
 
 #compiler settings:
-set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
+set (CMAKE_C_FLAGS "-Wall -Werror -Wextra -Ofast")
 set (CMAKE_C_FLAGS_DEBUG "-g -fsanitize=address") #cmake -DCMAKE_BUILD_TYPE=DEBUG to add debug flags
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON) #vscode include path checking
 

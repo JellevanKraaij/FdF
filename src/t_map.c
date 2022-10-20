@@ -12,7 +12,7 @@ void	destroy_map(t_map *map)
 	free(map);
 }
 
-t_map	*copy_map(t_map *map)
+t_map	*dup_map(t_map *map)
 {
 	t_map	 *ret;
 	size_t	point_size;

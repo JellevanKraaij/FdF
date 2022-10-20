@@ -11,7 +11,6 @@ void	point_apply_iso(t_point *point)
 
 	point->cords[X] = x;
 	point->cords[Y] = y;
-	point->cords[Z] = 0;
 }
 
 void	map_project_iso(t_map *map)

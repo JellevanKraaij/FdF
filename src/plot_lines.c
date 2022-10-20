@@ -41,7 +41,7 @@ void plotLine(mlx_image_t *img, int x0, int y0, int x1, int y1)
 	}
 }
 
-void	map_to_img(mlx_image_t *img, t_map *map)
+void	plot_lines(mlx_image_t *img, t_map *map)
 {
 	size_t	i;
 	int		x0;
@@ -58,7 +58,7 @@ void	map_to_img(mlx_image_t *img, t_map *map)
 			y0 = map->points[i].cords[Y];
 			x1 = map->points[i + 1].cords[X];
 			y1 = map->points[i + 1].cords[Y];
-			if ((x0 > 0 && x0 < WIDTH) || (x1 > 0 && x1 < WIDTH) || (y0 > 0 && y0 < HEIGHT) || (y1 > 0 && y1 < HEIGHT))
+			if ((x0 > 0 && x0 < (int)img->width) || (x1 > 0 && x1 < (int)img->width) || (y0 > 0 && y0 < (int)img->height) || (y1 > 0 && y1 < (int)img->height))
 				plotLine(img, x0, y0, x1, y1);
 		}
 		if ((i / map->column_count) + 1 < map->row_count)
@@ -67,8 +67,8 @@ void	map_to_img(mlx_image_t *img, t_map *map)
 			y0 = map->points[i].cords[Y];
 			x1 = map->points[i + map->column_count].cords[X];
 			y1 = map->points[i + map->column_count].cords[Y];
-			if ((x0 > 0 && x0 < WIDTH) || (x1 > 0 && x1 < WIDTH) || (y0 > 0 && y0 < HEIGHT) || (y1 > 0 && y1 < HEIGHT))
-			plotLine(img, x0, y0, x1, y1);
+			if ((x0 > 0 && x0 < (int)img->width) || (x1 > 0 && x1 < (int)img->width) || (y0 > 0 && y0 < (int)img->height) || (y1 > 0 && y1 < (int)img->height))
+				plotLine(img, x0, y0, x1, y1);
 		}
 		i++;
 	}
