@@ -39,8 +39,8 @@ void	translate_map(t_map *map, t_fdf *data)
 		x = data->x_offset;
 		y = data->y_offset;
 	}
-	x *= (data->map_scale);
-	y *= (data->map_scale);
+	x *= (1 + data->map_scale / data->map_scale) - 1;
+	y *= (1 + data->map_scale / data->map_scale) - 1;
 	vector[X] = x - (((double)data->map->column_count - 1.0) / 2.0);
 	vector[Y] = y - (((double)data->map->row_count - 1.0) / 2.0);
 	vector[Z] = 0;
