@@ -16,9 +16,6 @@
 # include <libft.h>
 # include <MLX42/MLX42.h>
 
-# define WIDTH 1000
-# define HEIGHT 1000
-
 # define X 0
 # define Y 1
 # define Z 2
@@ -36,7 +33,7 @@ typedef struct s_map {
 	size_t		column_count;
 }	t_map;
 
-typedef struct s_data {
+typedef struct s_fdf {
 	t_map		*map;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
@@ -47,26 +44,36 @@ typedef struct s_data {
 	double		x_offset;
 	double		y_offset;
 	int			projection;
-} t_data;
+}	t_fdf;
 
-t_map		*parse_map(char *filename);
-void 		update_screen(t_data *data);
-void		plot_lines(mlx_image_t *img, t_map *map);
+t_fdf	*init_fdf(int w_width, int w_height, char *mapfile);
+void	start_renderloop_fdf(t_fdf *fdf);
+void	destroy_fdf(t_fdf *fdf);
 
-t_map		*init_map(void);
-void		destroy_map(t_map *map);
-t_map		*dup_map(t_map *map);
+void	update_screen(t_fdf *data);
+void	key_hook(mlx_key_data_t keydata, void *data_p);
+void	resize_hook(int32_t width, int32_t height, void *data_p);
+void	loop_hook(void *data_p);
 
-int			ft_atoi_safe(const char *str, int *number);
+t_map	*init_map(void);
+t_map	*parse_map(char *filename);
+void	destroy_map(t_map *map);
+t_map	*dup_map(t_map *map);
 
-void		perror_exit(const char *s, int error_code) \
+void	map_project_iso(t_map *map);
+void	map_apply_scale(t_map *map, double scale[3]);
+void	map_apply_offset(t_map *map, double offset[3]);
+void	plot_lines(mlx_image_t *img, t_map *map);
+
+
+int		ft_atoi_safe(const char *str, int *number);
+void	perror_exit(const char *s, int error_code) \
+				__attribute__((noreturn));
+void	*null_exit(void	*ptr);
+void	print_error_exit(char *error, int error_code) \
 					__attribute__((noreturn));
-void		*null_exit(void	*ptr);
-void		print_error_exit(char *error, int error_code) \
-					__attribute__((noreturn));
-void		print_error(char *error);
-void		map_project_iso(t_map *map);
-void		map_apply_scale(t_map *map, double scale[3]);
-void		map_apply_offset(t_map *map, double offset[3]);
+void	print_error(char *error);
+
+
 
 #endif

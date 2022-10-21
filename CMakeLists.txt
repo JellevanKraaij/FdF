@@ -4,10 +4,11 @@ project(FdF)
 set (SRCS
     src/main.c
     src/error.c
+    src/t_fdf.c
+    src/hooks.c
     src/parser.c
     src/ft_atoi_save.c
     src/t_map.c
-    src/convert_map.c
     src/plot_lines.c
     src/projections.c
     src/scaling.c

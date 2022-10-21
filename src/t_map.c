@@ -14,7 +14,7 @@ void	destroy_map(t_map *map)
 
 t_map	*dup_map(t_map *map)
 {
-	t_map	 *ret;
+	t_map	*ret;
 	size_t	point_size;
 
 	ret = null_exit(malloc(sizeof(t_map)));

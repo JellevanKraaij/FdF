@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <get_next_line.h>
 
-
 static	void	add_point(t_point **points, t_point point)
 {
 	static t_point	*last;
@@ -22,7 +21,8 @@ static	void	add_point(t_point **points, t_point point)
 	if (used_len >= buffersize)
 	{
 		buffersize = len;
-		*points = ft_reallocf(*points, len * sizeof(t_point), (len + buffersize) * sizeof(t_point));
+		*points = ft_reallocf(*points, len * sizeof(t_point), \
+			(len + buffersize) * sizeof(t_point));
 		used_len = 0;
 		last = &(*points)[len];
 	}
@@ -82,7 +82,8 @@ int	parse_line(int fd, t_map *map)
 			print_error_exit("fdf: row is too long", EXIT_FAILURE);
 		if (parse_num_color(row[i], &num, &color) < 0)
 			print_error_exit("fdf: invalid number", EXIT_FAILURE);
-		add_point(&map->points, (t_point){.cords = {i, map->row_count, num}, .color = color});
+		add_point(&map->points, (t_point){.cords = \
+			{i, map->row_count, num}, .color = color});
 		i++;
 	}
 	ft_split_free(row);
