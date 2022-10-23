@@ -9,11 +9,12 @@ set (SRCS
     src/parser.c
     src/ft_atoi_save.c
     src/t_map.c
-    src/plot_lines.c
+    src/fill_image.c
     src/projections.c
     src/scaling.c
     src/offset.c
     src/update_screen.c
+    src/draw_lines.c
 )
 set (EXEC_NAME fdf)
 

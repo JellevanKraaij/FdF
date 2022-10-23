@@ -45,6 +45,19 @@ static	char	**get_file_row(int fd)
 	return (split_line);
 }
 
+int	reverse_color(int color)
+{
+	uint8_t	*b_color;
+	uint8_t	r_color[4];
+
+	b_color = (uint8_t *)&color;
+	// r_color[0] = b_color[0];
+	r_color[1] = b_color[0];
+	r_color[2] = b_color[1];
+	r_color[3] = b_color[2];
+	return (*(int *)r_color);
+}
+
 static	int	parse_num_color(char *cell, int *height, int *color)
 {
 	char	*loc;
@@ -59,6 +72,9 @@ static	int	parse_num_color(char *cell, int *height, int *color)
 	num = null_exit(ft_strndup(cell, (size_t)loc - (size_t)cell));
 	if (ft_atoi_safe(num, height) < 0 || ft_atoi_safe((loc + 1), color))
 		ret = -1;
+	// *color |= 0xFF000000;
+	*color = reverse_color(*color);
+	*color |= 0xFF;
 	free(num);
 	return (ret);
 }

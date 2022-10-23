@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   helloworld.h                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jvan-kra <jvan-kra@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/03/30 23:41:24 by jvan-kra      #+#    #+#                 */
-/*   Updated: 2022/03/30 23:41:24 by jvan-kra      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FDF_H
 # define FDF_H
 
@@ -64,7 +52,7 @@ void	map_project_iso(t_map *map);
 void	map_apply_scale(t_map *map, double scale[3]);
 void	map_apply_offset(t_map *map, double offset[3]);
 void	plot_lines(mlx_image_t *img, t_map *map);
-
+void	plot_line(mlx_image_t *img, t_point point1, t_point point2);
 
 int		ft_atoi_safe(const char *str, int *number);
 void	perror_exit(const char *s, int error_code) \
