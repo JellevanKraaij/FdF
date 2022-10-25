@@ -13,14 +13,14 @@ void	clear_img(mlx_image_t *img)
 		j = 0;
 		while (j < img->width)
 		{
-			mlx_put_pixel(img, j, i, 0);
+			mlx_put_pixel(img, j, i, 0XFF000000);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	translate_map(t_map *map, t_fdf *data)
+static void	translate_map(t_map *map, t_fdf *data)
 {
 	double	vector[3];
 	double	x;
@@ -46,7 +46,7 @@ void	translate_map(t_map *map, t_fdf *data)
 	map_apply_offset(map, vector);
 }
 
-void	scale_map(t_map *map, t_fdf *data)
+static void	scale_map(t_map *map, t_fdf *data)
 {
 	double	vector[3];
 
@@ -58,12 +58,12 @@ void	scale_map(t_map *map, t_fdf *data)
 	map_apply_scale(map, vector);
 }
 
-void	center_map(t_map *map, t_fdf *data)
+static void	center_map(t_map *map, t_fdf *data)
 {
 	double	vector[3];
 
-	vector[X] = (data->img->width / 2);
-	vector[Y] = (data->img->height / 2);
+	vector[X] = (data->img[0]->width / 2);
+	vector[Y] = (data->img[0]->height / 2);
 	vector[Z] = 0;
 	map_apply_offset(map, vector);
 }
@@ -78,10 +78,13 @@ void	update_screen(t_fdf *data)
 	if (data->projection == ISO)
 		map_project_iso(map);
 	center_map(map, data);
-	clear_img(data->img);
 	if (map->column_count == 1 && map->row_count == 1)
-		plot_point(data->img, map);
+		plot_point(data->img[!data->current_img], map);
 	else
-		plot_lines(data->img, map);
+		plot_lines(data->img[!data->current_img], map);
+	mlx_set_instance_depth(data->img[!data->current_img]->instances, 0);
+	mlx_set_instance_depth(data->img[data->current_img]->instances, 1);
+	clear_img(data->img[data->current_img]);
+	data->current_img = !data->current_img;
 	destroy_map(map);
 }

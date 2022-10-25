@@ -1,6 +1,7 @@
 # Compiled source #
 ###################
-hello-world
+fdf
+*.o
 build
 
 # OS generated files #

@@ -24,7 +24,7 @@ typedef struct s_map {
 typedef struct s_fdf {
 	t_map		*map;
 	mlx_t		*mlx;
-	mlx_image_t	*img;
+	mlx_image_t	*img[2];
 	int			update;
 	double		scale;
 	double		map_scale;
@@ -32,6 +32,7 @@ typedef struct s_fdf {
 	double		x_offset;
 	double		y_offset;
 	int			projection;
+	int			current_img;
 }	t_fdf;
 
 t_fdf	*init_fdf(int w_width, int w_height, char *mapfile);
@@ -39,6 +40,7 @@ void	start_renderloop_fdf(t_fdf *fdf);
 void	destroy_fdf(t_fdf *fdf);
 
 void	update_screen(t_fdf *data);
+void	clear_img(mlx_image_t *img);
 void	key_hook(mlx_key_data_t keydata, void *data_p);
 void	resize_hook(int32_t width, int32_t height, void *data_p);
 void	loop_hook(void *data_p);
