@@ -1,6 +1,5 @@
 #include "fdf.h"
 #include "line.h"
-#include <stdio.h>
 
 static int	possible_on_screen(t_point point1, t_point point2, mlx_image_t *img)
 {
@@ -51,4 +50,9 @@ void	plot_lines(mlx_image_t *img, t_map *map)
 		}
 		i++;
 	}
+}
+
+void	plot_point(mlx_image_t *img, t_map *map)
+{
+	draw_point(map->points[0].cords[X], map->points[0].cords[Y], map->points[0].color, img);
 }

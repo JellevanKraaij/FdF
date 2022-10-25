@@ -1,7 +1,6 @@
 #include "fdf.h"
 #include <MLX42/MLX42.h>
 #include <math.h>
-#include <stdio.h>
 
 void	clear_img(mlx_image_t *img)
 {
@@ -80,6 +79,9 @@ void	update_screen(t_fdf *data)
 		map_project_iso(map);
 	center_map(map, data);
 	clear_img(data->img);
-	plot_lines(data->img, map);
+	if (map->column_count == 1 && map->row_count == 1)
+		plot_point(data->img, map);
+	else
+		plot_lines(data->img, map);
 	destroy_map(map);
 }

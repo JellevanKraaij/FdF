@@ -9,16 +9,23 @@ typedef void	(*t_plot_f)(int, int, int, void *);
 # define B 1
 # define A 0
 
+typedef struct s_color
+{
+	double	current[4];
+	double	increase[4];
+	int		axis;
+	int		change;
+	int		original;
+}	t_color;
+
 typedef struct s_line
 {
-	int			p0[2];
-	int			p1[2];
+	int			start[2];
+	int			end[2];
 	int			delta[2];
 	int			sign[2];
 	int			error[2];
-	int			color;
-	double		color_add[4];
-	int			color_axis;
+	t_color		color;
 }	t_line;
 
 void	draw_line(t_point p1, t_point p2, \

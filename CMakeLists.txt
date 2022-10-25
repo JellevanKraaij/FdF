@@ -14,12 +14,13 @@ set (SRCS
     src/scaling.c
     src/offset.c
     src/update_screen.c
-    src/draw_lines.c
+    src/draw_line.c
+ #   src/draw_line_color.c
 )
 set (EXEC_NAME fdf)
 
 #compiler settings:
-set (CMAKE_C_FLAGS "-Wall -Werror -Wextra -Ofast")
+set (CMAKE_C_FLAGS "-Wall -Werror -Wextra -Ofast -O3")
 set (CMAKE_C_FLAGS_DEBUG "-g -fsanitize=address") #cmake -DCMAKE_BUILD_TYPE=DEBUG to add debug flags
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON) #vscode include path checking
 

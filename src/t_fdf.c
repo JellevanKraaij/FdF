@@ -16,7 +16,7 @@ t_fdf	*init_fdf(int w_width, int w_height, char *mapfile)
 	fdf = null_exit(ft_calloc(1, sizeof(t_fdf)));
 	fdf->map = parse_map(mapfile);
 	fdf->update = 1;
-	fdf->z_scale = 1;
+	fdf->z_scale = 0.5;
 	fdf->map_scale = fdf_smallest((float)w_width / 2 / fdf->map->column_count, \
 		(float)w_height / 2 / fdf->map->row_count);
 	fdf->scale = fdf->map_scale;

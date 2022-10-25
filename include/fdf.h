@@ -53,6 +53,7 @@ void	map_apply_scale(t_map *map, double scale[3]);
 void	map_apply_offset(t_map *map, double offset[3]);
 void	plot_lines(mlx_image_t *img, t_map *map);
 void	plot_line(mlx_image_t *img, t_point point1, t_point point2);
+void	plot_point(mlx_image_t *img, t_map *map);
 
 int		ft_atoi_safe(const char *str, int *number);
 void	perror_exit(const char *s, int error_code) \
@@ -61,7 +62,5 @@ void	*null_exit(void	*ptr);
 void	print_error_exit(char *error, int error_code) \
 					__attribute__((noreturn));
 void	print_error(char *error);
-
-
 
 #endif
