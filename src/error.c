@@ -15,6 +15,12 @@
 #include <stdlib.h>
 #include <libft.h>
 
+void	exit_if_true(int status)
+{
+	if (status)
+		perror_exit("fdf", 1);
+}
+
 void	*null_exit(void	*ptr)
 {
 	if (ptr != NULL)

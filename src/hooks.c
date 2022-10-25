@@ -67,8 +67,8 @@ void	resize_hook(int32_t width, int32_t height, void *data_p)
 
 	data = data_p;
 	data->update = 1;
-	mlx_resize_image(data->img[0], width, height);
-	mlx_resize_image(data->img[1], width, height);
+	exit_if_true(!mlx_resize_image(data->img[0], width, height));
+	exit_if_true(!mlx_resize_image(data->img[1], width, height));
 }
 
 void	loop_hook(void *data_p)

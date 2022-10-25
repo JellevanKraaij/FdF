@@ -94,8 +94,10 @@ void	update_screen(t_fdf *data)
 		plot_point(data->img[!data->current_img], map);
 	else
 		plot_lines(data->img[!data->current_img], map);
-	mlx_set_instance_depth(data->img[!data->current_img]->instances, 0);
-	mlx_set_instance_depth(data->img[data->current_img]->instances, 1);
+	mlx_set_instance_depth(&data->img[!data->current_img] \
+		->instances[data->img_idx[!data->current_img]], 0);
+	mlx_set_instance_depth(&data->img[data->current_img] \
+		->instances[data->img_idx[data->current_img]], 1);
 	clear_img(data->img[data->current_img]);
 	data->current_img = !data->current_img;
 	destroy_map(map);

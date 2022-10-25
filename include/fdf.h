@@ -37,6 +37,8 @@ typedef struct s_fdf {
 	t_map		*map;
 	mlx_t		*mlx;
 	mlx_image_t	*img[2];
+	mlx_image_t	*text_img[4];
+	int			img_idx[2];
 	int			update;
 	double		scale;
 	double		map_scale;
@@ -72,6 +74,7 @@ void	plot_point(mlx_image_t *img, t_map *map);
 int		ft_atoi_safe(const char *str, int *number);
 void	perror_exit(const char *s, int error_code) \
 				__attribute__((noreturn));
+void	exit_if_true(int status);
 void	*null_exit(void	*ptr);
 void	print_error_exit(char *error, int error_code) \
 					__attribute__((noreturn));
