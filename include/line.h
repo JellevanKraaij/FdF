@@ -17,7 +17,8 @@ typedef struct s_line
 	int			sign[2];
 	int			error[2];
 	int			color;
-	double			color_add[4];
+	double		color_add[4];
+	int			color_axis;
 }	t_line;
 
 void	draw_line(t_point p1, t_point p2, \
