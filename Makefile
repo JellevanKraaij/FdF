@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: tosinga <tosinga@student.42.fr>              +#+                      #
+#    By: jvan-kra <jvan-kra@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2022/10/04 17:43:30 by jvan-kra      #+#    #+#                  #
-#    Updated: 2022/10/04 19:34:52 by tosinga       ########   odam.nl          #
+#    Created: 2022/10/25 19:59:28 by jvan-kra      #+#    #+#                  #
+#    Updated: 2022/10/25 19:59:28 by jvan-kra      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 

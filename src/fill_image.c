@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   fill_image.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra <jvan-kra@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/25 19:58:50 by jvan-kra      #+#    #+#                 */
+/*   Updated: 2022/10/25 19:58:50 by jvan-kra      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 #include "line.h"
 
@@ -54,5 +66,6 @@ void	plot_lines(mlx_image_t *img, t_map *map)
 
 void	plot_point(mlx_image_t *img, t_map *map)
 {
-	draw_point(map->points[0].cords[X], map->points[0].cords[Y], map->points[0].color, img);
+	draw_point(map->points[0].cords[X], map->points[0].cords[Y], \
+	map->points[0].color, img);
 }
