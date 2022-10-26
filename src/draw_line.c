@@ -25,7 +25,6 @@ static t_color	init_color(t_point p1, t_point p2, int delta[2])
 	ft_bzero(&color, sizeof(color));
 	if (p1.color == p2.color)
 	{
-		color.change = 0;
 		color.original = p1.color;
 		return (color);
 	}
