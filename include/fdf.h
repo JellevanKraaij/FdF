@@ -23,8 +23,8 @@
 
 typedef struct s_point
 {
-	double	cords[3];
-	int		color;
+	double			cords[3];
+	unsigned int	color;
 }	t_point;
 
 typedef struct s_map {
@@ -67,6 +67,7 @@ t_map	*dup_map(t_map *map);
 void	map_project_iso(t_map *map);
 void	map_apply_scale(t_map *map, double scale[3]);
 void	map_apply_offset(t_map *map, double offset[3]);
+void	map_apply_color(t_map *map);
 void	plot_lines(mlx_image_t *img, t_map *map);
 void	plot_line(mlx_image_t *img, t_point point1, t_point point2);
 void	plot_point(mlx_image_t *img, t_map *map);

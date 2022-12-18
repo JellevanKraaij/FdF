@@ -85,6 +85,7 @@ void	update_screen(t_fdf *data)
 	t_map	*map;
 
 	map = dup_map(data->map);
+	map_apply_color(map);
 	translate_map(map, data);
 	scale_map(map, data);
 	if (data->projection == ISO)

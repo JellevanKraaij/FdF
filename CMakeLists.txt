@@ -27,6 +27,7 @@ set (SRCS
     src/offset.c
     src/update_screen.c
     src/draw_line.c
+    src/color.c
 )
 set (EXEC_NAME fdf)
 
